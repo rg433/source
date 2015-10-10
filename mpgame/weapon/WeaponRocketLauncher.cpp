@@ -212,7 +212,7 @@ rvWeaponRocketLauncher::OnLaunchProjectile
 */
 void rvWeaponRocketLauncher::OnLaunchProjectile ( idProjectile* proj ) {
 	rvWeapon::OnLaunchProjectile(proj);
-
+	common->Printf("1\n"); 
 	// Double check that its actually a guided projectile
 	if ( !proj || !proj->IsType ( idGuidedProjectile::GetClassType() ) ) {
 		return;
@@ -231,6 +231,7 @@ rvWeaponRocketLauncher::SetRocketState
 */
 void rvWeaponRocketLauncher::SetRocketState ( const char* state, int blendFrames ) {
 	rocketThread.SetState ( state, blendFrames );
+	common->Printf("2\n"); 
 }
 
 /*
@@ -337,6 +338,7 @@ Raise the weapon
 ================
 */
 stateResult_t rvWeaponRocketLauncher::State_Raise ( const stateParms_t& parms ) {
+	common->Printf("3\n"); 
 	enum {
 		STAGE_INIT,
 		STAGE_WAIT,
@@ -370,6 +372,7 @@ Lower the weapon
 ================
 */
 stateResult_t rvWeaponRocketLauncher::State_Lower ( const stateParms_t& parms ) {	
+	common->Printf("4\n"); 
 	enum {
 		STAGE_INIT,
 		STAGE_WAIT,
@@ -404,6 +407,8 @@ rvWeaponRocketLauncher::State_Idle
 ================
 */
 stateResult_t rvWeaponRocketLauncher::State_Idle( const stateParms_t& parms ) {
+	common->Printf("5\n"); 
+	Attack ( false, 1, 50, 0, 1.0f );
 	enum {
 		STAGE_INIT,
 		STAGE_WAIT,
@@ -439,6 +444,7 @@ rvWeaponRocketLauncher::State_Fire
 ================
 */
 stateResult_t rvWeaponRocketLauncher::State_Fire ( const stateParms_t& parms ) {
+	common->Printf("6\n"); 
 	enum {
 		STAGE_INIT,
 		STAGE_WAIT,
@@ -446,7 +452,7 @@ stateResult_t rvWeaponRocketLauncher::State_Fire ( const stateParms_t& parms ) {
 	switch ( parms.stage ) {
 		case STAGE_INIT:
 			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));		
-			Attack ( false, 1, spread, 0, 1.0f );
+			Attack ( false, 1, 50, 0, 1.0f );
 			PlayAnim ( ANIMCHANNEL_LEGS, "fire", parms.blendFrames );	
 			return SRESULT_STAGE ( STAGE_WAIT );
 	
@@ -470,6 +476,8 @@ rvWeaponRocketLauncher::State_Rocket_Idle
 ================
 */
 stateResult_t rvWeaponRocketLauncher::State_Rocket_Idle ( const stateParms_t& parms ) {
+	common->Printf("7\n"); 
+
 	enum {
 		STAGE_INIT,
 		STAGE_WAIT,
@@ -516,6 +524,7 @@ rvWeaponRocketLauncher::State_Rocket_Reload
 ================
 */
 stateResult_t rvWeaponRocketLauncher::State_Rocket_Reload ( const stateParms_t& parms ) {
+	common->Printf("8\n"); 
 	enum {
 		STAGE_INIT,
 		STAGE_WAIT,
@@ -577,6 +586,7 @@ rvWeaponRocketLauncher::Frame_AddToClip
 ================
 */
 stateResult_t rvWeaponRocketLauncher::Frame_AddToClip ( const stateParms_t& parms ) {
+	common->Printf("9\n"); 
 	AddToClip ( 1 );
 	return SRESULT_OK;
 }
